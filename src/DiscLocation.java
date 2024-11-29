@@ -8,8 +8,8 @@ public class DiscLocation {
     public DiscLocation(double startX, double startY, double goalX, double goalY, double velocity) {
         this.x = startX;
         this.y = startY;
-        this.goalX = goalX;
-        this.goalY = goalY;
+        this.goalX = goalX - startX;
+        this.goalY = goalY - startY;
         this.velocity = velocity;
     }
 
@@ -18,16 +18,16 @@ public class DiscLocation {
     }
 
     public void update(Shape shape) {
-        double xDist = goalX - x;
-        double yDist = goalY - y;
+        double xDist = goalX - shape.getTranslateX();
+        double yDist = goalY - shape.getTranslateY();
         if (yDist == 0.0 || Math.random() < 0.5) {
             double xTravel = Math.min(velocity, xDist);
-            x += xTravel;
+            shape.setTranslateX(shape.getTranslateX() + xTravel);
+            x = shape.getTranslateX();
         } else {
             double yTravel = Math.min(velocity, yDist);
-            y += yTravel;
+            shape.setTranslateY(shape.getTranslateY() + yTravel);
+            y = shape.getTranslateY();
         }
-        shape.setTranslateX(x);
-        shape.setTranslateY(y);
     }
 }

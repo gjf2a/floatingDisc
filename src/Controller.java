@@ -15,14 +15,12 @@ public class Controller {
     public void initialize() {
         Platform.runLater(() -> {
             Scene scene = go.getScene();
-            Window window = scene.getWindow();
-            circles = new Circle[2];
+            Pane pane = (Pane)scene.getRoot();
+            circles = new Circle[5];
             for (int i = 0; i < circles.length; i++) {
-                circles[i] = new Circle(0.0,0.0, 10.0, Color.AQUA);
-                circles[i].setTranslateX(Math.random() * window.getWidth());
-                circles[i].setTranslateY(Math.random() * window.getHeight());
-                Pane pane = (Pane)scene.getRoot();
+                circles[i] = new Circle(randomCoord(pane.getWidth()), randomCoord(pane.getHeight()), 10.0, Color.AQUA);
                 pane.getChildren().add(circles[i]);
+                System.out.println(circles[i].getLayoutX() + " " + circles[i].getLayoutY());
             }
         });
     }
@@ -35,13 +33,21 @@ public class Controller {
     @FXML
     public void launch() {
         Scene scene = go.getScene();
-        Window window = scene.getWindow();
+        Pane pane = (Pane)scene.getRoot();
+
         movingCircle = (int)(Math.random() * circles.length);
         Circle target = circles[movingCircle];
-        double endX = Math.random() * window.getWidth();
-        double endY = Math.random() * window.getHeight();
-        discState = new DiscLocation(target.getTranslateX(), target.getTranslateY(), endX, endY, 2.0);
+        double endX = randomCoord(pane.getWidth());
+        double endY = randomCoord(pane.getHeight());
+        System.out.println("(w, h): " + pane.getWidth() + ", " + pane.getHeight());
+        System.out.println("Goal:   " + endX + ", " + endY);
+        System.out.println("At:     " + target.getCenterX() + ", " + target.getCenterY());
+        discState = new DiscLocation(target.getCenterX(), target.getCenterY(), endX, endY, 2.0);
         timer.start();
+    }
+
+    private double randomCoord(double dimension) {
+        return Math.random() * dimension;
     }
 
     private AnimationTimer timer = new AnimationTimer() {
