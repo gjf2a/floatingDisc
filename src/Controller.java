@@ -47,14 +47,14 @@ public class Controller {
         return Math.random() * dimension;
     }
 
-    private AnimationTimer timer = new AnimationTimer() {
+    private final AnimationTimer timer = new AnimationTimer() {
 
-        private final long FRAMES_PER_SEC = 50L;
-        private final long INTERVAL = 1000000000L / FRAMES_PER_SEC;
         private long last = 0;
 
         @Override
         public void handle(long now) {
+            long FRAMES_PER_SEC = 50L;
+            long INTERVAL = 1000000000L / FRAMES_PER_SEC;
             if (now - last > INTERVAL) {
                 last = now;
                 if (discState.done()) {
