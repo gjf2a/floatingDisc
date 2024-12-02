@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Window;
 
 public class Controller {
     Circle[] circles;
@@ -18,7 +17,9 @@ public class Controller {
             Pane pane = (Pane)scene.getRoot();
             circles = new Circle[5];
             for (int i = 0; i < circles.length; i++) {
-                circles[i] = new Circle(randomCoord(pane.getWidth()), randomCoord(pane.getHeight()), 10.0, Color.AQUA);
+                circles[i] = new Circle(0, 0, 10.0, Color.AQUA);
+                circles[i].setTranslateX(randomCoord(pane.getWidth()));
+                circles[i].setTranslateY(randomCoord(pane.getHeight()));
                 pane.getChildren().add(circles[i]);
                 System.out.println(circles[i].getLayoutX() + " " + circles[i].getLayoutY());
             }
@@ -41,8 +42,8 @@ public class Controller {
         double endY = randomCoord(pane.getHeight());
         System.out.println("(w, h): " + pane.getWidth() + ", " + pane.getHeight());
         System.out.println("Goal:   " + endX + ", " + endY);
-        System.out.println("At:     " + target.getCenterX() + ", " + target.getCenterY());
-        discState = new DiscLocation(target.getCenterX(), target.getCenterY(), endX, endY, 2.0);
+        System.out.println("At:     " + target.getTranslateX() + ", " + target.getTranslateY());
+        discState = new DiscLocation(target.getTranslateX(), target.getTranslateY(), endX, endY, 2.0);
         timer.start();
     }
 
