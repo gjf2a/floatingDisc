@@ -21,7 +21,6 @@ public class Controller {
                 circles[i].setTranslateX(randomCoord(pane.getWidth()));
                 circles[i].setTranslateY(randomCoord(pane.getHeight()));
                 pane.getChildren().add(circles[i]);
-                System.out.println(circles[i].getLayoutX() + " " + circles[i].getLayoutY());
             }
         });
     }
@@ -40,9 +39,6 @@ public class Controller {
         Circle target = circles[movingCircle];
         double endX = randomCoord(pane.getWidth());
         double endY = randomCoord(pane.getHeight());
-        System.out.println("(w, h): " + pane.getWidth() + ", " + pane.getHeight());
-        System.out.println("Goal:   " + endX + ", " + endY);
-        System.out.println("At:     " + target.getTranslateX() + ", " + target.getTranslateY());
         discState = new DiscLocation(target.getTranslateX(), target.getTranslateY(), endX, endY, 2.0);
         timer.start();
     }
